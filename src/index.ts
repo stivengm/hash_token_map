@@ -1,5 +1,6 @@
 import { GenerateHashTokenModel, ResponseRequestModel } from './models/index';
-import * as crypto from 'crypto-js';
+import * as cryptoJS from 'crypto-js';
+import crypto from 'crypto';
 
 export const sum = (a: number, b: number) => {
   if ('development' === process.env.NODE_ENV) {
@@ -33,8 +34,8 @@ export const generateHashToken = (
 
         const jsonString = JSON.stringify(jsonObject);
         tokenHash = window.btoa(jsonString);
-        const hash = crypto.HmacSHA256(tokenHash, 'b34c1b1fadb75d5517e30a1a9a81eb72');
-        const signature = tokenHash + "." + hash.toString(crypto.enc.Hex);
+        const hash = cryptoJS.HmacSHA256(tokenHash, 'b34c1b1fadb75d5517e30a1a9a81eb72');
+        const signature = tokenHash + "." + hash.toString(cryptoJS.enc.Hex);
         var responseRequest: ResponseRequestModel = {
             code: 'TRX001',
             message: '',
@@ -43,8 +44,38 @@ export const generateHashToken = (
         onSuccess(responseRequest);
     } else {
         const responseRequest: ResponseRequestModel = {
-            code: 'TRX001',
+            code: 'TRX002',
             message: '',
+            data: ''
+        }
+        onError(responseRequest);
+    }
+
+}
+
+export const generateRandomId = (
+    generateById: string,
+    onSuccess: (response: ResponseRequestModel) => void,
+    onError: (response: ResponseRequestModel) => void
+) => {
+
+    if (generateById != '') {
+
+        const uuid = crypto.randomUUID();
+        const splitUuid = uuid.split('-');
+        const id = generateById + '_' + splitUuid[0];
+
+        var responseRequest: ResponseRequestModel = {
+            code: 'TRX001',
+            message: 'Se ha generado satisfactoriamente el ID.',
+            data: id
+        }
+        onSuccess(responseRequest);
+
+    } else {
+        const responseRequest: ResponseRequestModel = {
+            code: 'TRX002',
+            message: 'Error deberá enviar un valor válido',
             data: ''
         }
         onError(responseRequest);
