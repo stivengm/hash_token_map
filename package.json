@@ -1,6 +1,6 @@
 {
   "name": "hash-token-map-generate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "license": "MIT",
   "main": "dist/index.js",
@@ -55,7 +55,6 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "crypto": "^1.0.1",
     "crypto-js": "^4.2.0"
   }
 }

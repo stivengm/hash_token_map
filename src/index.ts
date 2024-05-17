@@ -1,6 +1,5 @@
 import { GenerateHashTokenModel, ResponseRequestModel } from './models/index';
 import * as cryptoJS from 'crypto-js';
-import crypto from 'crypto';
 
 export const sum = (a: number, b: number) => {
   if ('development' === process.env.NODE_ENV) {
@@ -59,17 +58,23 @@ export const generateRandomId = (
     onError: (response: ResponseRequestModel) => void
 ) => {
 
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
     if (generateById != '') {
 
-        const uuid = crypto.randomUUID();
-        const splitUuid = uuid.split('-');
-        const id = generateById + '_' + splitUuid[0];
+        let result = "";
+        const id = generateById;
+
+        for (let i = 0; i < 8; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
 
         var responseRequest: ResponseRequestModel = {
             code: 'TRX001',
-            message: 'Se ha generado satisfactoriamente el ID.',
-            data: id
+            message: 'Se ha generado satisfactoriamente el ID',
+            data: id + '_' + result
         }
+
         onSuccess(responseRequest);
 
     } else {
