@@ -4,15 +4,15 @@ Esta librería está realizada en TSDX, esta se usa para generar un hash con inf
 
 # Instalación de librería
 
-'''sh
+```js
 npm i hash-token-map-generate
-'''
+```
 
 # Uso
 
 ## Generar HashMap
 
-'''sh
+```js
 
 // Importación de la librería
 import { generateHashToken } from 'hash-token-map-generate';
@@ -38,5 +38,4 @@ function generateHashMap() {
 
 }
 
-
-'''
+```
